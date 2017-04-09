@@ -1,0 +1,100 @@
+v0.2.3 created on April 3, 2017
+  (1) add our published paper to reference section in Rd files
+
+v0.2.2 created on Jan. 8, 2017
+  (1) put by 'using_limit' input option for 'eLNNpaired'. For non-hierarchical
+      distribution, k*tau^{-1} is zero, which will cause optimization problem
+  (2) set default value of 'psi' in 'gen_simple' as psi = c(0.441, 1, -0.442, 1, 2)
+
+v0.2.1 created on Jan. 7, 2017
+  (1) set maxRT = 100 for eLNNpaired to increase speed
+  (2) delete the input 'using_limit' to increase spped and directly using unconstrained optim
+  (3) in gtPaired online example, set G=500 to speed up
+
+v0.2.0 created on Jan. 6, 2017
+  (1) revise 'gen_eLNNpaired' function: check if memGenes==3 is empty
+  (2) add functions 'gen_simple', 'lmPerGenePaired', and 'gtPaired'
+  (3) replace the parameter values in examples by estimated parameter
+  (4) use 'es' as input in 'samrOneClass'; delete 'logged2' input;
+  (5) put iCheck, samr, GSEAlm, and Globaltest to Imports instead of Dependes
+      in DESCRIPTION
+
+values based on GSE43292
+
+v0.1.9 created on Jan. 6, 2017
+  (1) revised 'gen_eLNNpaired': stop when no probes in one cluster
+  (2) fixed a bug in 'samrOneClass': memGenes2[pos] = rep(0, nrow(x))
+      should be memGenes[pos]=0
+
+v0.1.8 created on Jan. 6, 2017
+  (1) fix a bug in 'eLNNpaired' and 'samrOneClass': 
+        memGenes2[which(memGenes == 3)]
+      memGenes==3 might be all false
+  (2) the bug about 'psi' in v0.1.7 is actually not a bug since
+      all 'psi' are 10x1 vector in 'eLNNpaired' file
+  (3) no need to separate l_c and negative_l_c (this will increase running time)
+  (4) no need to define both gradient_l_c and gradient_negative_l_c
+
+v0.1.7 created on Jan. 5, 2017
+  (1) find a bug in v0.1 in function 'eLNNpaired':
+      before calling 'get_tilde_z' in 'eLNNpaired', psi is a 10 x1 vector.
+      But in definition of 'get_tilde_z', lf123() requires psi is a 12x1 vector.
+      Similarly, 'negative_l_c' and 'gradient_negative_l_c' require 'psi' as
+      a 12 x 1 vector, but before calling 'optim' in 'eLNNpaired' function,
+      psi is a 10x1 vector
+  (2) do not use 'getPara.orig' in file 'eLNNpaired.r'. Instead, using 
+      Yunfeng's code (modified code)
+
+v0.1.6 created on Jan. 4, 2017
+  (1) make 'psi' consistently having 10 elements, not 12 elements
+  (2) make 't_pi' consistently having 2 elements, not 3 elements 
+  (3) simplify functions: 'lf123', 'gradient_l_c' function
+  (4) add 'memGenes2' to output of 'samrOneClass' function
+
+v0.1.5 created on Jan. 4, 2017
+  (1)  fixed a bug in samrOneClass: siggenes.table$genes.lo[,1] is not correct
+  (2)  revise 'gen_eLNNpaired' function
+  (3) added function 'estErrorRates'
+  (4) added output 'memGenes2' (1=DE, 0=NE) 
+      DE (differentially expressed); NE (non-differentially expressed)
+  (5) remove "is_sim" input option in 'eLNNpaired' function
+  (6) replace est_cluster by 'memGenes' and true_cluster by 'memGenes.true'
+  (7) fixed a bug in 'eLNNpaired.r': the first 3 columns of fData(E_Set)
+      might not be probe id, gene symbol, and chromosome
+  (8) drop the output 'E_Set' from 'eLNNpaired' function
+  (9) in 'eLNNpaired' function:
+  over_expressed_E_Set = E_Set[over_expressed_sub_script]
+  under_expressed_E_Set = E_Set[under_expressed_sub_script]
+  non_diff_E_Set = E_Set[non_diff_sub_script]
+
+should be
+  over_expressed_E_Set = E_Set[over_expressed_sub_script,]
+  under_expressed_E_Set = E_Set[under_expressed_sub_script,]
+  non_diff_E_Set = E_Set[non_diff_sub_script,]
+
+
+
+
+v0.1.3 created on Jan. 3, 2017
+  (1) added functions 'getPara.orig', 'getRePara', 'checkPara', 
+      and 'samrOneClass'
+  (2) added 'psi', 'para.orig' and 'memGenes' to output of 'eLNNpaired'
+  (3) added 'import(samr)' in NAMESPACE
+
+v0.1.2 created on Dec. 31, 2016
+  (1) revised examples in online help to speed up
+
+v0.1.1 created on Dec. 30, 2016
+  (1) re-build Yunfeng's R package 'eLNNpaired'
+  (2) depends R version >=3.3.0
+  (3) added the followings to NAMESPACE:
+
+import(Biobase)
+import(stats)
+import(iCheck)
+
+importFrom("graphics", "hist", "legend", "lines", "plot")
+importFrom("methods", "new")
+#importFrom("stats", "dnorm", "mad", "median", "optim", "pnorm",
+#           "qnorm", "rgamma", "rnorm", "runif")
+
